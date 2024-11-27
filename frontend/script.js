@@ -1,5 +1,3 @@
-// File: frontend/script.js
-
 // Function to fetch and display all bars
 function fetchAllBars() {
     fetch('http://localhost:3000/bars')
