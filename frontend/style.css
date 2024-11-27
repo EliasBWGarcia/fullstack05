@@ -44,6 +44,7 @@ h1 {
 
 #bar-list {
     padding: 20px;
+    list-style-type: none;
 }
 
 .bar-item {

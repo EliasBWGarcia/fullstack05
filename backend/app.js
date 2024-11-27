@@ -21,7 +21,7 @@ connection.connect((err) => {
     console.log('Connected to the MySQL server.');
 });
 
-// Endpoint for at fremsøge alle barer i databasen - kommer automatisk når du åbner siden
+// Endpoint for at fremsøge alle barer i databasen
 app.get('/bars', (req, res) => {
     const query = `
     SELECT b.bar_id, b.name, b.rating, b.kvadratmeter,
