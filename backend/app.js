@@ -21,7 +21,7 @@ connection.connect((err) => {
     console.log('Connected to the MySQL server.');
 });
 
-// Endpoint for at fremsøge alle barer i databasen
+// Endpoint for at fremsøge alle barer i databasen - kommer automatisk når du åbner siden
 app.get('/bars', (req, res) => {
     const query = `
     SELECT b.bar_id, b.name, b.rating, b.kvadratmeter,
@@ -72,6 +72,27 @@ app.get('/bars/city/:city', (req, res) => {
         res.json(results);
     });
 });
+
+
+// Endpoint for at få en bar udfra dens id
+app.get('/bars/:ID', (req, res) => {
+    const barID = req.params.ID;
+    const query = `
+    SELECT b.bar_id, b.name, b.rating, b.kvadratmeter,
+           ba.street_name, ba.street_number, ba.zip_code, ba.city,
+           bl.lat, bl.lng
+    FROM bar
+    JOIN bar_address ba ON b.bar_address_id = ba.address_id
+    JOIN bar_location bl ON b.bar_location_id = bl.location_id
+    WHERE b.bar_id = ?
+  `;
+    connection.query(query, [barID], (error, results) => {
+        if (error) throw error;
+        res.json(results);
+    });
+});
+
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
