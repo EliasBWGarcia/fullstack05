@@ -28,6 +28,15 @@ function searchBarsByCity(city) {
         .catch(error => console.error('Error searching for bars by city:', error));
 }
 
+function searchBarsByID(id) {
+    fetch(`http://localhost:3000/bars/id/${encodeURIComponent(id)}`)
+        .then(response => response.json())
+        .then(data => {
+            displayBars(data);
+        })
+        .catch(error => console.error('Error searching for bars by city:', error));
+}
+
 // Function to display bars in the list
 function displayBars(bars) {
     const barList = document.getElementById('bar-list');
@@ -50,6 +59,7 @@ function displayBars(bars) {
         barList.appendChild(li);
     });
 }
+
 
 // Event listener for the search button
 document.getElementById('search-btn').addEventListener('click', () => {

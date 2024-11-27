@@ -38,7 +38,7 @@ app.get('/bars', (req, res) => {
 });
 
 // Endpoint for at få kun 1 bar med et specifikt navn
-app.get('/bars/:name', (req, res) => {
+app.get('/bars/name/:name', (req, res) => {
     const barName = req.params.name;
     const query = `
     SELECT b.bar_id, b.name, b.rating, b.kvadratmeter,
@@ -75,13 +75,13 @@ app.get('/bars/city/:city', (req, res) => {
 
 
 // Endpoint for at få en bar udfra dens id
-app.get('/bars/:ID', (req, res) => {
+app.get('/bars/id/:ID', (req, res) => {
     const barID = req.params.ID;
     const query = `
     SELECT b.bar_id, b.name, b.rating, b.kvadratmeter,
            ba.street_name, ba.street_number, ba.zip_code, ba.city,
            bl.lat, bl.lng
-    FROM bar
+    FROM bar b
     JOIN bar_address ba ON b.bar_address_id = ba.address_id
     JOIN bar_location bl ON b.bar_location_id = bl.location_id
     WHERE b.bar_id = ?
