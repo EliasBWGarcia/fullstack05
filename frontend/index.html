@@ -1,0 +1,36 @@
+<!-- File: frontend/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bar Finder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-sA+YwPIFV+2c66Rw2iK4l5SZ8jINlwmTz5v3tyg8r7M=" crossorigin=""/>
+</head>
+<body>
+<h1>Bar Finder</h1>
+
+<div class="search-container">
+    <input type="text" id="search-input" placeholder="Search by bar name">
+    <button id="search-btn">Search</button>
+    <input type="text" id="city-input" placeholder="Filter by city">
+    <button id="city-btn">Filter</button>
+    <button id="reset-btn">Reset</button>
+</div>
+
+<h2>Bars</h2>
+<div id="bar-list"></div>
+
+<!-- Map container -->
+<div id="map"></div>
+
+<!-- Leaflet JavaScript -->
+<script
+        src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-o9N1jC3O2kF5noqoY3EowDbYL23+6kRe+6L7YtLw48g="
+        crossorigin=""
+></script>
+<script src="script.js"></script>
+</body>
+</html>
