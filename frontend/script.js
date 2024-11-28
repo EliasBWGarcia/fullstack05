@@ -106,13 +106,10 @@ fetchAllBars();
 
 
 
-//Kort situationen
-////fra https://leafletjs.com/examples/quick-start/
-//jeg prøver at hive div'en barlist ud fra html // eller fra localhost/300/bars, da det er der dataen kommer til at ligge på siden
-//const barsArray = document.get   måske?
+//Kort på siden
+////har brugt https://leafletjs.com/examples/quick-start/
 
-
-//har sat kortet herunder til at starte på kordinater og med et zoom der viser Danmark
+//har sat kortet herunder til at starte på kordinater med et zoom der københavn
 const map = L.map('map').setView([55.6761, 12.5683], 13);
 
 
@@ -123,30 +120,35 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 
-/*
-//hjælp fra chatGPT
-// Funktion til at tilføje barer som markører på kortet
-function addBarsToMap(bars) {
-    bars.forEach(bar => {
-        if (bar_location.lat && bar_location.lng) { // Sørg for at baren har koordinater
-            L.marker([bar_location.lat, bar_location.lng]) //opretter markører og sætter dem på kortet
-                .addTo(map)
-                .bindPopup(`<b>${bar.name}</b><br>${bar_address.street_name} ${bar_address.street_number}, ${bar_address.city}`);
-        }
-    });
-}
-*/
 
+//Tilføjer markers på alle barer
 
 // Fetch bars data from the server
-//lige nu virker det ikke at indsætte markørerne, fordi det vi får tilbage fra endpointet er lidt spøjst fordi nogen har skrevet sql-queryesne på en max fucked måde
+//henter lat og lng til markers fra localhost/300/bars - det kommer tilbage som et object
 fetch('http://localhost:3000/bars')
     .then(response => response.json())
     .then(data => {
+        console.log("data fetched")
         console.log(data)
-        data.forEach(bars=> {
-            L.marker([bar_location.lat, bar_location.lng]).addTo(map)
-        })
-    })
-    .catch(error => console.log('Error fetching bars', error));
 
+        data.forEach(bar => {
+            // Adding a marker for each bar
+
+                //jeg kan se når jeg logger dataen vi får tilbage, at lat og lng åbenbart er strings - derfor må vi konventere dem til tal, før de kan bruges som kordinater
+            const lat = parseFloat(bar.lat);
+            const lng = parseFloat(bar.lng);
+
+                //Hjælp fra chatGPT
+            if (!isNaN(lat) && !isNaN(lng)) { // Tjekker om de blev til tal, og laver en marker hvis de er blevet til tal
+                marker = L.marker([lat, lng]).addTo(map);
+                //tilføjer skilte med bar-navn på markers hvis man trykker på dem
+                marker.bindPopup(`${bar.name}`)
+
+            } else {
+                console.error(`Invalid coordinates for bar: ${bar.name}`);
+            }
+                });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
