@@ -120,7 +120,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 
-
 //Tilføjer markers på alle barer
 
 // Fetch bars data from the server
@@ -138,9 +137,19 @@ fetch('http://localhost:3000/bars')
             const lat = parseFloat(bar.lat);
             const lng = parseFloat(bar.lng);
 
-                //Hjælp fra chatGPT
+            //laver markeren til et billede af en øl
+            //hjælp fra https://stackoverflow.com/questions/21584790/how-to-use-custom-markers-with-leaflet
+            const beerIcon = L.icon({
+                iconUrl: `beer.png`,
+                iconSize:     [70, 60], // size of the icon
+                popupAnchor:  [0, -20] // popup relative to the iconAnchor
+            });
+
+
+            //Hjælp fra chatGPT til at få ide om at tjekke om lat og lng ikke ikke er et tal
             if (!isNaN(lat) && !isNaN(lng)) { // Tjekker om de blev til tal, og laver en marker hvis de er blevet til tal
-                marker = L.marker([lat, lng]).addTo(map);
+                marker = L.marker([lat, lng], {icon: beerIcon}).addTo(map);
+
                 //tilføjer skilte med bar-navn på markers hvis man trykker på dem
                 marker.bindPopup(`${bar.name}`)
 
