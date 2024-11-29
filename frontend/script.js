@@ -93,9 +93,20 @@ document.getElementById('reset-btn').addEventListener('click', () => {
 });
 
 
-// event listener for login-btn
+// create new user
+//gutter jeg kan ikke finde ud af det lige nu
+//se https://github.com/nicklasdean/post-error-handling for hjælp
 document.getElementById('login-btn').addEventListener('click', () => {
    console.log("login button clicked")
+
+    //henter values fra inputfelterne i login-div'en
+    const username = document.querySelector("#username").value;
+    const password = document.querySelector("#password").value;
+
+    fetch('bars/:new-user')
+        //noget
+
+
 })
 
 
@@ -141,12 +152,12 @@ fetch('http://localhost:3000/bars')
             //hjælp fra https://stackoverflow.com/questions/21584790/how-to-use-custom-markers-with-leaflet
             const beerIcon = L.icon({
                 iconUrl: `beer.png`,
-                iconSize:     [70, 60], // size of the icon
+                iconSize:     [80, 70], // size of the icon
                 popupAnchor:  [0, -20] // popup relative to the iconAnchor
             });
 
 
-            //Hjælp fra chatGPT til at få ide om at tjekke om lat og lng ikke ikke er et tal
+            //Hjælp fra chatGPT til at få ideen at tjekke, om lat og lng ikke-ikke er et tal
             if (!isNaN(lat) && !isNaN(lng)) { // Tjekker om de blev til tal, og laver en marker hvis de er blevet til tal
                 marker = L.marker([lat, lng], {icon: beerIcon}).addTo(map);
 
