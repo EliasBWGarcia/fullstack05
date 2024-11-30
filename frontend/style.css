@@ -43,8 +43,23 @@ h1 {
     background-color: #45a049;
 }
 
+
+.login-box {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-box input {
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    width: 200px;
+}
+
 #bar-list {
     padding: 20px;
+    list-style-type: none;
 }
 
 .bar-item {

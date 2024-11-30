@@ -22,7 +22,7 @@ connection.connect((err) => {
     console.log('Connected to the MySQL server.');
 });
 
-// Endpoint for at fremsøge alle barer i databasen - kommer automatisk når du åbner siden
+// Endpoint for at fremsøge alle barer i databasen
 app.get('/bars', (req, res) => {
     const query = `
         SELECT b.bar_id, b.name, b.rating, b.kvadratmeter,
@@ -145,6 +145,17 @@ app.post('/register', (req, res) => {
         });
     });
 })
+
+//endpoint for creating new user
+//gutter jeg kan ikke finde ud af det lige nu - se https://github.com/nicklasdean/post-error-handling for hjælp
+app.post('bars/:new-user'), (req, res) => {
+    const newUser = req.params["new-user"];
+    //query til at sætte dataen ind i databasen - man behøves ikke skrive user_id da den er auto incrementing og selv giver rækken id
+    const query = `INSERT INTO USER (password, user_id, username)
+                          VALUES (password, ,username)`
+}
+
+
 
 
 app.listen(port, () => {
