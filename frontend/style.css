@@ -22,6 +22,7 @@ h1 {
     background-color: #e2e2e2;
 }
 
+
 .search-container input {
     padding: 10px;
     margin-right: 10px;
@@ -83,15 +84,43 @@ h1 {
     margin-right: 10px;
     display: flex;
     text-align: right;
+    text-decoration: none;
 }
 
-#map {
-    width: 100%;
-    height: 500px;
+a {
+    color: white;
 }
 
-@media screen and (min-width: 768px) {
-    .search-container input {
-        width: 300px;
+/* login side */
+.main-login-container {
+    background-color: #e2e2e2;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.login-credentials input {
+    display: flex;
+    height: 2em;
+    text-align: left;
+    margin-bottom: 2em;
+    padding: 1px;
+}
+
+.login-header h1 {
+    background-color: #e2e2e2;
+    color: black;
+}
+
+    #map {
+        width: 100%;
+        height: 500px;
     }
-}
+
+    /* til mindre skærme */
+    @media screen and (min-width: 768px) {
+        .search-container input {
+            width: 300px;
+        }
+    }

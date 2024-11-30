@@ -1,4 +1,3 @@
-// Function to fetch and display all bars
 function fetchAllBars() {
     fetch('http://localhost:3000/bars')
         .then(response => response.json())
@@ -8,9 +7,8 @@ function fetchAllBars() {
         .catch(error => console.error('Error fetching bars:', error));
 }
 
-// Function to search for a bar by name
 function searchBarByName(name) {
-    fetch(`http://localhost:3000/bars/${encodeURIComponent(name)}`)
+    fetch(`http://localhost:3000/bars/name/${encodeURIComponent(name)}`)
         .then(response => response.json())
         .then(data => {
             displayBars(data);
@@ -18,7 +16,7 @@ function searchBarByName(name) {
         .catch(error => console.error('Error searching for bar:', error));
 }
 
-// Function to search for bars by city
+
 function searchBarsByCity(city) {
     fetch(`http://localhost:3000/bars/city/${encodeURIComponent(city)}`)
         .then(response => response.json())
@@ -37,10 +35,10 @@ function searchBarsByID(id) {
         .catch(error => console.error('Error searching for bars by city:', error));
 }
 
-// Function to display bars in the list
+
 function displayBars(bars) {
     const barList = document.getElementById('bar-list');
-    barList.innerHTML = ''; // Clear previous results
+    barList.innerHTML = '';
 
     if (bars.length === 0) {
         barList.innerHTML = '<li>No bars found.</li>';
@@ -61,7 +59,6 @@ function displayBars(bars) {
 }
 
 
-// Event listener for the search button
 document.getElementById('search-btn').addEventListener('click', () => {
     const name = document.getElementById('search-input').value.trim();
     if (name) {
@@ -71,7 +68,7 @@ document.getElementById('search-btn').addEventListener('click', () => {
     }
 });
 
-// Event listener for the city filter button
+
 document.getElementById('city-btn').addEventListener('click', () => {
     const city = document.getElementById('city-input').value.trim();
     if (city) {
@@ -81,12 +78,12 @@ document.getElementById('city-btn').addEventListener('click', () => {
     }
 });
 
-// Event listener for the reset button
+
 document.getElementById('reset-btn').addEventListener('click', () => {
     document.getElementById('search-input').value = '';
     document.getElementById('city-input').value = '';
     fetchAllBars();
 });
 
-// Fetch and display all bars on page load
+
 fetchAllBars();
