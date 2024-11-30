@@ -10,12 +10,6 @@
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
 
-    <style>
-               #map {
-            width: 800px;
-            height: 500px;
-        }
-    </style>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
@@ -35,10 +29,10 @@
 </div>
 
 <h2>Bars</h2>
-<div id="bar-list"></div>
-
-<div id="map"></div>
-
+<div class="main-container">
+    <div id="bar-list" class="bar-list"></div>
+    <div id="map" class="map"></div>
+</div>
 <script src="script.js"></script>
 </body>
 </html>

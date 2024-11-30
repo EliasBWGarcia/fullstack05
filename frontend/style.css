@@ -15,6 +15,10 @@ h1 {
     text-align: center;
 }
 
+h2 {
+    margin-left: 32px;
+}
+
 .search-container {
     display: flex;
     justify-content: center;
@@ -60,30 +64,16 @@ h1 {
 #bar-list {
     padding: 20px;
     list-style-type: none;
+    width: 30%;
+    overflow-y: auto;
+    background-color: white;
+    margin-left: 10px;
 }
 
-.bar-item {
-    background-color: #ffffff;
-    margin-bottom: 20px;
-    padding: 15px;
-    border-radius: 5px;
-}
-
-.bar-item h3 {
-    margin-top: 0;
-}
-
-.bar-item button {
-    padding: 8px 12px;
-    border: none;
-    background-color: #35424a;
-    color: #ffffff;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.bar-item button:hover {
-    background-color: #45a049;
+.main-container {
+    display: flex;
+    height: 80vh;
+    border: 1px solid #ccc;
 }
 
 #city-btn, #reset-btn {
@@ -106,7 +96,6 @@ a {
     color: white;
 }
 
-/* login side */
 .main-login-container {
     background-color: #e2e2e2;
     height: 100vh;
@@ -128,10 +117,10 @@ a {
     color: black;
 }
 
-    #map {
-        width: 100%;
-        height: 500px;
-    }
+#map {
+    flex-grow: 1;
+    height: 100%;
+}
 
     /* til mindre skærme */
     @media screen and (min-width: 768px) {
