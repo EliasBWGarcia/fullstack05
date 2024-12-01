@@ -18,7 +18,7 @@ const connection = mysql.createConnection({
 // der forbindes til databasen:
 connection.connect((err) => {
     if (err) throw err;
-    console.log('Connected to the MySQL server.');
+    console.log('forbindelsen til databasen er oprettet');
 });
 
 // Endpoint for at fremsøge alle barer i databasen
@@ -30,12 +30,12 @@ app.get('/bars', (req, res) => {
         FROM Bar b
         JOIN bar_address ba ON b.bar_address_id = ba.address_id
         JOIN bar_location bl ON b.bar_location_id = bl.location_id
-    `;
+    `; // b er et alias for bar tabellen. ba er et alias for bar_address tabellen. bl er et alias for bar_location
     // her bliver querien givet til databasen
     connection.query(query, (error, results) => {
         if (error) {
-            console.error('Database error:', error);
-            return res.status(500).send('Server error');
+            console.error('Database fejl:', error);
+            return res.status(500).send('Server fejl');
         }
         // results returneres, hvis der ikke er en error, og results skal stå som callback i funktionen.
         res.json(results);
@@ -106,11 +106,11 @@ app.post('/login', (req, res) => {
     connection.query(sqlQuery, values, (error, results) => {
         if (error) {
             console.error(error);
-            return res.status(500).send('Server error');
+            return res.status(500).send('Server fejl');
         }
 
         if (results.length === 0) {
-            return res.status(401).send('Invalid username or password');
+            return res.status(401).send('Forkert brugernavn eller password. Læs placeholderne i input felterne, eller opret en account.');
         }
 
         res.status(200).json({ success: true });
@@ -126,18 +126,18 @@ app.post('/register', (req, res) => {
         // der tjekkets for fejl og om brugernavnet allerede eksisterer i databasen
         if (error) {
             console.error(error);
-            return res.status(500).send('Server error');
+            return res.status(500).send('Server fejl');
         }
 
         if (results.length > 0) {
-            return res.status(409).send('Username already exists');
+            return res.status(409).send('Brugernavnet eksisterer allerede');
         }
 
         const insertQuery = 'INSERT INTO user (username, password) VALUES (?, ?)';
         connection.query(insertQuery, values, (error, results) => {
             if (error) {
                 console.error(error);
-                return res.status(500).send('Server error');
+                return res.status(500).send('Server fejl');
             }
 
             res.status(201).json({success: true});

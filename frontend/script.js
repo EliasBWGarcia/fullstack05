@@ -1,3 +1,7 @@
+const getResetBtn = document.getElementById("reset-btn")
+const getSearchBtn = document.getElementById("search-btn")
+const getCityBtn = document.getElementById("city-btn")
+
 function fetchAllBars() {
     fetch('http://localhost:3000/bars')
         .then(response => response.json())
@@ -8,7 +12,7 @@ function fetchAllBars() {
 }
 
 function searchBarByName(name) {
-    fetch(`http://localhost:3000/bars/name/${encodeURIComponent(name)}`)
+    fetch(`http://localhost:3000/bars/name/${name}`)
         .then(response => response.json())
         .then(data => {
             displayBars(data);
@@ -18,7 +22,7 @@ function searchBarByName(name) {
 
 
 function searchBarsByCity(city) {
-    fetch(`http://localhost:3000/bars/city/${encodeURIComponent(city)}`)
+    fetch(`http://localhost:3000/bars/city/${city}`)
         .then(response => response.json())
         .then(data => {
             displayBars(data);
@@ -49,8 +53,7 @@ function displayBars(bars) {
     });
 }
 
-
-document.getElementById('search-btn').addEventListener('click', () => {
+getSearchBtn.addEventListener('click', () => {
     const name = document.getElementById('search-input').value.trim();
     if (name) {
         searchBarByName(name);
@@ -59,8 +62,7 @@ document.getElementById('search-btn').addEventListener('click', () => {
     }
 });
 
-
-document.getElementById('city-btn').addEventListener('click', () => {
+getCityBtn.addEventListener('click', () => {
     const city = document.getElementById('city-input').value.trim();
     if (city) {
         searchBarsByCity(city);
@@ -69,14 +71,13 @@ document.getElementById('city-btn').addEventListener('click', () => {
     }
 });
 
-
-document.getElementById('reset-btn').addEventListener('click', () => {
+getResetBtn.addEventListener('click', () => {
     document.getElementById('search-input').value = '';
     document.getElementById('city-input').value = '';
     fetchAllBars();
 });
 
-
+// funktionen kaldes for at vise alle bar "by default"
 fetchAllBars();
 
 
