@@ -33,9 +33,9 @@ app.get('/bars', (req, res) => {
         JOIN bar_address ba ON b.bar_address_id = ba.address_id
         JOIN bar_location bl ON b.bar_location_id = bl.location_id
         WHERE 1=1
-        // b er et alias for bar tabellen. ba er et alias for bar_address tabellen. bl er et alias for bar_location
     `;
     const params = [];
+    // b er et alias for bar tabellen. ba er et alias for bar_address tabellen. bl er et alias for bar_location
 
     // Add filters based on provided query parameters
     if (name) {
@@ -67,7 +67,7 @@ app.get('/bars', (req, res) => {
             console.error('Database fejl:', error);
             return res.status(500).send('Server fejl');
         }
-        // results returneres, hvis der ikke er en error. Results skal altid stå som callback i funktionen.
+
         res.json(results);
     });
 });
