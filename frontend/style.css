@@ -55,7 +55,7 @@ h2 {
     padding: 15px;
     list-style-type: none;
     width: 25%;
-    max-height: 60vh;
+    height: 100%;
     overflow-y: auto;
     background-color: white;
     margin-left: 5px;

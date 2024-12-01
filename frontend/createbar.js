@@ -103,7 +103,6 @@ document.getElementById('add-bar-form').addEventListener('submit', (e) => {
             if (response.ok) {
                 return response.json();
             } else {
-                // Håndter fejlrespons
                 return response.text().then(text => {
                     throw new Error(text || 'Fejl ved tilføjelse af bar');
                 });

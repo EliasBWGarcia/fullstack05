@@ -1,22 +1,9 @@
 const getResetBtn = document.getElementById("reset-btn")
 const getSearchBtn = document.getElementById("search-btn")
 const getCityBtn = document.getElementById("city-btn")
+
 function fetchAllBars() {
-    // Get filter values
-    const minRating = document.getElementById('min-rating').value;
-    const maxRating = document.getElementById('max-rating').value;
-    const minSize = document.getElementById('min-size').value;
-    const maxSize = document.getElementById('max-size').value;
-
-    // Build query parameters
-    const params = new URLSearchParams();
-
-    if (minRating) params.append('minRating', minRating);
-    if (maxRating) params.append('maxRating', maxRating);
-    if (minSize) params.append('minSize', minSize);
-    if (maxSize) params.append('maxSize', maxSize);
-
-    fetch(`http://localhost:3000/bars?${params.toString()}`)
+    fetch('http://localhost:3000/bars')
         .then(response => response.json())
         .then(data => {
             displayBars(data);
@@ -24,21 +11,8 @@ function fetchAllBars() {
         .catch(error => console.error('Error fetching bars:', error));
 }
 
-
 function searchBarByName(name) {
-    const minRating = document.getElementById('min-rating').value;
-    const maxRating = document.getElementById('max-rating').value;
-    const minSize = document.getElementById('min-size').value;
-    const maxSize = document.getElementById('max-size').value;
-
-    const params = new URLSearchParams();
-    params.append('name', name);
-    if (minRating) params.append('minRating', minRating);
-    if (maxRating) params.append('maxRating', maxRating);
-    if (minSize) params.append('minSize', minSize);
-    if (maxSize) params.append('maxSize', maxSize);
-
-    fetch(`http://localhost:3000/bars?${params.toString()}`)
+    fetch(`http://localhost:3000/bars/name/${name}`)
         .then(response => response.json())
         .then(data => {
             displayBars(data);
@@ -48,19 +22,7 @@ function searchBarByName(name) {
 
 
 function searchBarsByCity(city) {
-    const minRating = document.getElementById('min-rating').value;
-    const maxRating = document.getElementById('max-rating').value;
-    const minSize = document.getElementById('min-size').value;
-    const maxSize = document.getElementById('max-size').value;
-
-    const params = new URLSearchParams();
-    params.append('city', city);
-    if (minRating) params.append('minRating', minRating);
-    if (maxRating) params.append('maxRating', maxRating);
-    if (minSize) params.append('minSize', minSize);
-    if (maxSize) params.append('maxSize', maxSize);
-
-    fetch(`http://localhost:3000/bars?${params.toString()}`)
+    fetch(`http://localhost:3000/bars/city/${city}`)
         .then(response => response.json())
         .then(data => {
             displayBars(data);
