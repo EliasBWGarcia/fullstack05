@@ -145,7 +145,73 @@ app.post('/register', (req, res) => {
         });
     });
 })
+// Endpoint for at oprette en ny bar
+app.post('/bars', (req, res) => {
+    const {
+        name, rating, kvadratmeter,
+        street_name, street_number, zip_code, city,
+        lat, lng
+    } = req.body;
+
+    // Indsæt i bar_address
+    const addressQuery = 'INSERT INTO bar_address (street_name, street_number, zip_code, city) VALUES (?, ?, ?, ?)';
+    const addressValues = [street_name, street_number, zip_code, city];
+
+    connection.query(addressQuery, addressValues, (error, addressResult) => {
+        if (error) {
+            console.error('Database fejl:', error);
+            return res.status(500).send('Server fejl');
+        }
+
+        const addressId = addressResult.insertId;
+
+        // Indsæt i bar_location
+        const locationQuery = 'INSERT INTO bar_location (lat, lng) VALUES (?, ?)';
+        const locationValues = [lat, lng];
+
+        connection.query(locationQuery, locationValues, (error, locationResult) => {
+            if (error) {
+                console.error('Database fejl:', error);
+                return res.status(500).send('Server fejl');
+            }
+
+            const locationId = locationResult.insertId;
+
+            // Indsæt i Bar
+            const barQuery = `
+                INSERT INTO Bar (name, rating, kvadratmeter, bar_address_id, bar_location_id)
+                VALUES (?, ?, ?, ?, ?)
+            `;
+            const barValues = [name, rating, kvadratmeter, addressId, locationId];
+
+            connection.query(barQuery, barValues, (error, barResult) => {
+                if (error) {
+                    console.error('Database fejl:', error);
+                    return res.status(500).send('Server fejl');
+                }
+
+                res.status(201).json({ bar_id: barResult.insertId });
+            });
+        });
+    });
+});
+
+// Endpoint for at slette en bar
+app.delete('/bars/:id', (req, res) => {
+    const barId = req.params.id;
+
+    // Slet fra Bar tabellen
+    const deleteBarQuery = 'DELETE FROM Bar WHERE bar_id = ?';
+    connection.query(deleteBarQuery, [barId], (error, result) => {
+        if (error) {
+            console.error('Database fejl:', error);
+            return res.status(500).send('Server fejl');
+        }
+
+        res.status(200).send('Bar slettet succesfuldt');
+    });
+});
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-})
+    console.log(`Serveren kører på port ${port}`);
+});
