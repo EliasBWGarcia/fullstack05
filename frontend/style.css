@@ -98,6 +98,7 @@ a {
     flex-direction: column;
     /*https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient*/
     background: linear-gradient(#e66465, #9198e5);
+    border-radius: 5%;
 }
 
 .login-credentials h1 {
