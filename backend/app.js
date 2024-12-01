@@ -8,7 +8,6 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-// Create MySQL connection using environment variables
 const connection = mysql.createConnection({
     host: process.env.DBHOST,
     user: process.env.DBUSER,
@@ -16,7 +15,7 @@ const connection = mysql.createConnection({
     database: process.env.DBNAME
 });
 
-// Connect to MySQL
+// der forbindes til databasen:
 connection.connect((err) => {
     if (err) throw err;
     console.log('Connected to the MySQL server.');
@@ -32,14 +31,14 @@ app.get('/bars', (req, res) => {
         JOIN bar_address ba ON b.bar_address_id = ba.address_id
         JOIN bar_location bl ON b.bar_location_id = bl.location_id
     `;
-    // Perform the query
+    // her bliver querien givet til databasen
     connection.query(query, (error, results) => {
         if (error) {
             console.error('Database error:', error);
             return res.status(500).send('Server error');
         }
-        // Send results as a response
-        res.json(results); // Ensure this is inside the query callback
+        // results returneres, hvis der ikke er en error, og results skal stå som callback i funktionen.
+        res.json(results);
     });
 });
 
@@ -114,16 +113,17 @@ app.post('/login', (req, res) => {
             return res.status(401).send('Invalid username or password');
         }
 
-        // Login successful
         res.status(200).json({ success: true });
     });
 });
 
 app.post('/register', (req, res) => {
     const {username, password} = req.body;
+    const values = [username, password]
 
     const checkQuery = 'SELECT * FROM user WHERE username = ?';
     connection.query(checkQuery, [username], (error, results) => {
+        // der tjekkets for fejl og om brugernavnet allerede eksisterer i databasen
         if (error) {
             console.error(error);
             return res.status(500).send('Server error');
@@ -133,9 +133,8 @@ app.post('/register', (req, res) => {
             return res.status(409).send('Username already exists');
         }
 
-        // Insert new user into the database with hashed password
         const insertQuery = 'INSERT INTO user (username, password) VALUES (?, ?)';
-        connection.query(insertQuery, [username, password], (error, results) => {
+        connection.query(insertQuery, values, (error, results) => {
             if (error) {
                 console.error(error);
                 return res.status(500).send('Server error');
