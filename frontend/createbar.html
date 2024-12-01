@@ -2,33 +2,38 @@
 <html lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Opret, Opdater og Slet Barer</title>
+    <title>Bar Oversigt</title>
+    <!-- Link to the common styles -->
     <link rel="stylesheet" href="style.css">
+    <!-- Link to the page-specific styles -->
+
 </head>
 <body>
-<h1>Administrer Barer</h1>
+<h1>Bar Oversigt</h1>
 
 <!-- Formular til at tilføje en ny bar -->
-<h2>Tilføj en Ny Bar</h2>
-<form id="add-bar-form">
-    <input type="text" id="bar-name" placeholder="Bar Navn (f.eks. 'Den Glade Time')" required>
+<h2>Tilføj en ny bar</h2>
+<form id="add-bar-form" class="form-container">
+    <!-- Bar information -->
+    <input type="text" id="bar-name" placeholder="Bar Navn" required>
     <input type="number" id="bar-rating" placeholder="Bedømmelse (1-5)" min="1" max="5">
-    <input type="number" id="bar-size" placeholder="Størrelse i m² (f.eks. 150)">
+    <input type="number" id="bar-size" placeholder="Størrelse i m²">
     <!-- Adresse Felter -->
-    <input type="text" id="street-name" placeholder="Gadenavn (f.eks. 'Hovedgade')" required>
-    <input type="number" id="street-number" placeholder="Gadenummer (f.eks. 123)" required>
-    <input type="number" id="zip-code" placeholder="Postnummer (f.eks. 1000)" required>
-    <input type="text" id="city" placeholder="By (f.eks. 'København')" required>
+    <input type="text" id="street-name" placeholder="Gadenavn" required>
+    <input type="number" id="street-number" placeholder="Gadenummer" required>
+    <input type="number" id="zip-code" placeholder="Postnummer" required>
+    <input type="text" id="city" placeholder="By" required>
     <!-- Lokationsfelter -->
-    <input type="text" id="lat" placeholder="Breddegrad (f.eks. 55.6761)" required>
-    <input type="text" id="lng" placeholder="Længdegrad (f.eks. 12.5683)" required>
-    <button type="submit">Tilføj Bar</button>
+    <input type="text" id="lat" placeholder="Breddegrad" required>
+    <input type="text" id="lng" placeholder="Længdegrad" required>
+    <button type="submit" class="btn">Tilføj Bar</button>
 </form>
 
-<!-- Liste over eksisterende barer -->
-<h2>Eksisterende Barer</h2>
+<!-- Liste over barer -->
+<h2>Liste over Barer</h2>
 <ul id="bar-list"></ul>
 
+<!-- Include JavaScript file -->
 <script src="createbar.js"></script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+// createbar.js
+
 // Hent og vis alle barer, når siden indlæses
 document.addEventListener('DOMContentLoaded', () => {
     fetchBars();
@@ -94,7 +96,7 @@ document.getElementById('add-bar-form').addEventListener('submit', (e) => {
 
     fetch('http://localhost:3000/bars', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(barData)
     })
         .then(response => {
@@ -144,7 +146,7 @@ function hideUpdateForm(barId) {
     document.getElementById(`update-form-${barId}`).style.display = 'none';
 }
 
-/// Funktion til at opdatere en bar
+// Funktion til at opdatere en bar
 function updateBar(barId) {
     const barData = {
         name: document.getElementById(`update-bar-name-${barId}`).value.trim(),
@@ -160,18 +162,17 @@ function updateBar(barId) {
 
     fetch(`http://localhost:3000/bars/${barId}`, {
         method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(barData)
     })
         .then(response => {
             if (response.ok) {
                 alert('Bar opdateret succesfuldt');
                 hideUpdateForm(barId);
-                fetchBars(); // Refresh the list of bars
+                fetchBars();
             } else {
                 alert('Fejl ved opdatering af bar');
             }
         })
         .catch(error => console.error('Fejl ved opdatering af bar:', error));
 }
-
