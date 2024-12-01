@@ -211,6 +211,58 @@ app.delete('/bars/:id', (req, res) => {
         res.status(200).send('Bar slettet succesfuldt');
     });
 });
+// Endpoint for at opdatere en bar
+app.put('/bars/:id', (req, res) => {
+    const barId = req.params.id;
+    const {
+        name, rating, kvadratmeter,
+        street_name, street_number, zip_code, city,
+        lat, lng
+    } = req.body;
+
+    // Opdater Bar tabellen
+    const updateBarQuery = 'UPDATE Bar SET name = ?, rating = ?, kvadratmeter = ? WHERE bar_id = ?';
+    const barValues = [name, rating, kvadratmeter, barId];
+
+    connection.query(updateBarQuery, barValues, (error, result) => {
+        if (error) {
+            console.error('Database fejl:', error);
+            return res.status(500).send('Server fejl');
+        }
+
+        // Opdater bar_address
+        const updateAddressQuery = `
+            UPDATE bar_address
+            SET street_name = ?, street_number = ?, zip_code = ?, city = ?
+            WHERE address_id = (SELECT bar_address_id FROM Bar WHERE bar_id = ?)
+        `;
+        const addressValues = [street_name, street_number, zip_code, city, barId];
+
+        connection.query(updateAddressQuery, addressValues, (error, result) => {
+            if (error) {
+                console.error('Database fejl:', error);
+                return res.status(500).send('Server fejl');
+            }
+
+            // Opdater bar_location
+            const updateLocationQuery = `
+                UPDATE bar_location
+                SET lat = ?, lng = ?
+                WHERE location_id = (SELECT bar_location_id FROM Bar WHERE bar_id = ?)
+            `;
+            const locationValues = [lat, lng, barId];
+
+            connection.query(updateLocationQuery, locationValues, (error, result) => {
+                if (error) {
+                    console.error('Database fejl:', error);
+                    return res.status(500).send('Server fejl');
+                }
+
+                res.status(200).send('Bar opdateret succesfuldt');
+            });
+        });
+    });
+});
 
 app.listen(port, () => {
     console.log(`Serveren kører på port ${port}`);
