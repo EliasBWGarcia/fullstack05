@@ -265,3 +265,5 @@ app.put('/bars/:id', (req, res) => {
 app.listen(port, () => {
     console.log(`Serveren kører på port ${port}`);
 });
+
+// HTTP STATUS KODER: https://www.semrush.com/blog/http-status-codes/?g_network=g&g_keyword=&g_campaign=NE_SRCH_DSA_Blog_EN&g_acctid=503-093-2724&g_keywordid=dsa-2185834088336&g_adtype=search&g_adid=676326011180&g_campaignid=18350115241&g_adgroupid=159562815492&kw=&cmp=NE_SRCH_DSA_Blog_EN&label=dsa_pagefeed&Network=g&Device=c&utm_content=676326011180&kwid=dsa-2185834088336&cmpid=18350115241&agpid=159562815492&BU=Core&extid=180213783648&adpos=&gad_source=1&gbraid=0AAAAADiv3HReJ_yIC_VFvHD2azUew8POR&gclid=Cj0KCQiAr7C6BhDRARIsAOUKifj5vGL_pXVLwYJW-thfr3gFgL5QqKXJyzcOzF9kPgiH6L7099NO-ygaAn9AEALw_wcB
