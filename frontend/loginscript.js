@@ -1,5 +1,5 @@
 
-document.getElementById('login-btn')?.addEventListener('click', () => {
+document.getElementById('login-btn').addEventListener('click', () => {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
 
@@ -24,7 +24,7 @@ document.getElementById('login-btn')?.addEventListener('click', () => {
 });
 
 
-document.getElementById('create-account-btn')?.addEventListener('click', () => {
+document.getElementById('create-account-btn').addEventListener('click', () => {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
 

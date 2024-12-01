@@ -26,15 +26,6 @@ function searchBarsByCity(city) {
         .catch(error => console.error('Error searching for bars by city:', error));
 }
 
-function searchBarsByID(id) {
-    fetch(`http://localhost:3000/bars/id/${encodeURIComponent(id)}`)
-        .then(response => response.json())
-        .then(data => {
-            displayBars(data);
-        })
-        .catch(error => console.error('Error searching for bars by city:', error));
-}
-
 
 function displayBars(bars) {
     const barList = document.getElementById('bar-list');
@@ -119,7 +110,7 @@ fetch('http://localhost:3000/bars')
         data.forEach(bar => {
             // Adding a marker for each bar
 
-                //jeg kan se når jeg logger dataen vi får tilbage, at lat og lng åbenbart er strings - derfor må vi konventere dem til tal, før de kan bruges som kordinater
+            //jeg kan se når jeg logger dataen vi får tilbage, at lat og lng åbenbart er strings - derfor må vi konventere dem til tal, før de kan bruges som kordinater
             const lat = parseFloat(bar.lat);
             const lng = parseFloat(bar.lng);
 
@@ -142,8 +133,8 @@ fetch('http://localhost:3000/bars')
             } else {
                 console.error(`Invalid coordinates for bar: ${bar.name}`);
             }
-                });
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
