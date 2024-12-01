@@ -22,11 +22,11 @@ connection.connect((err) => {
     console.log('Connected to the MySQL server.');
 });
 
-// Endpoint for retrieving bars with optional filters
+// Endpoint med barer med filtre
 app.get('/bars', (req, res) => {
     const { name, city, minRating, maxRating, minSize, maxSize } = req.query;
 
-    // Build the base query
+    // sqlquery
     let query = `
         SELECT b.bar_id, b.name, b.rating, b.kvadratmeter,
                ba.street_name, ba.street_number, ba.zip_code, ba.city,
