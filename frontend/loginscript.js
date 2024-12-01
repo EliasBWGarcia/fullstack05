@@ -4,7 +4,7 @@ document.getElementById('login-btn').addEventListener('click', () => {
     const password = document.getElementById('password').value.trim();
 
     if (!username || !password) {
-        alert('Please enter both username and password.');
+        alert('Indtast både brugernavn og password. Læs placeholderne i input felterne, eller opret en konto. Skriv dine nye login-oplysninger, og tryk herefter på opret konto.');
         return;
     }
 
@@ -20,7 +20,7 @@ document.getElementById('login-btn').addEventListener('click', () => {
                 response.text().then(text => alert(text));
             }
         })
-        .catch(error => console.error('Error during login:', error));
+        .catch(error => console.error('Fejl ved login', error));
 });
 
 
@@ -29,7 +29,7 @@ document.getElementById('create-account-btn').addEventListener('click', () => {
     const password = document.getElementById('password').value.trim();
 
     if (!username || !password) {
-        alert('Please enter both username and password and press create an account.');
+        alert('Læs placeholderne i input felterne, eller opret en konto. Skriv dine nye login-oplysninger, og tryk herefter på opret konto.');
         return;
     }
 
@@ -40,7 +40,7 @@ document.getElementById('create-account-btn').addEventListener('click', () => {
     })
         .then(response => {
             if (response.ok) {
-                alert('Account created successfully. Please login.');
+                alert('Konto oprettet. Indtast oplysningerne i input felterne.');
 
                 document.getElementById('username').value = '';
                 document.getElementById('password').value = '';
@@ -48,5 +48,5 @@ document.getElementById('create-account-btn').addEventListener('click', () => {
                 response.text().then(text => alert(text));
             }
         })
-        .catch(error => console.error('Error during account creation:', error));
+        .catch(error => console.error('Fejl ved kontooprettelse. ', error));
 });

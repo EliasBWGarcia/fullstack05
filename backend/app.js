@@ -8,7 +8,6 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-// Create MySQL connection using environment variables
 const connection = mysql.createConnection({
     host: process.env.DBHOST,
     user: process.env.DBUSER,
@@ -16,17 +15,16 @@ const connection = mysql.createConnection({
     database: process.env.DBNAME
 });
 
-// Connect to MySQL
+// der forbindes til databasen:
 connection.connect((err) => {
     if (err) throw err;
-    console.log('Connected to the MySQL server.');
+    console.log('forbindelsen til databasen er oprettet');
 });
 
-// Endpoint med barer med filtre
+// Endpoint for at fremsøge alle barer i databasen. Med filtre
 app.get('/bars', (req, res) => {
     const { name, city, minRating, maxRating, minSize, maxSize } = req.query;
 
-    // sqlquery
     let query = `
         SELECT b.bar_id, b.name, b.rating, b.kvadratmeter,
                ba.street_name, ba.street_number, ba.zip_code, ba.city,
@@ -35,6 +33,7 @@ app.get('/bars', (req, res) => {
         JOIN bar_address ba ON b.bar_address_id = ba.address_id
         JOIN bar_location bl ON b.bar_location_id = bl.location_id
         WHERE 1=1
+        // b er et alias for bar tabellen. ba er et alias for bar_address tabellen. bl er et alias for bar_location
     `;
     const params = [];
 
@@ -63,23 +62,20 @@ app.get('/bars', (req, res) => {
         query += ' AND b.kvadratmeter <= ?';
         params.push(maxSize);
     }
-
-    // Perform the query with the parameters
     connection.query(query, params, (error, results) => {
         if (error) {
-            console.error('Database error:', error);
-            return res.status(500).send('Server error');
+            console.error('Database fejl:', error);
+            return res.status(500).send('Server fejl');
         }
-        // Send results as a response
+        // results returneres, hvis der ikke er en error. Results skal altid stå som callback i funktionen.
         res.json(results);
     });
 });
 
 
-
 // Endpoint for at få kun 1 bar med et specifikt navn
 app.get('/bars/name/:name', (req, res) => {
-    const barName = `%${req.params.name}%`; // Add wildcards for partial matching
+    const barName = `%${req.params.name}%`;
     const query = `
     SELECT b.bar_id, b.name, b.rating, b.kvadratmeter,
            ba.street_name, ba.street_number, ba.zip_code, ba.city,
@@ -140,45 +136,45 @@ app.post('/login', (req, res) => {
     connection.query(sqlQuery, values, (error, results) => {
         if (error) {
             console.error(error);
-            return res.status(500).send('Server error');
+            return res.status(500).send('Server fejl');
         }
 
         if (results.length === 0) {
-            return res.status(401).send('Invalid username or password');
+            return res.status(401).send('Forkert brugernavn eller password. Læs placeholderne i input felterne, eller opret en account.');
         }
 
-        // Login successful
         res.status(200).json({ success: true });
     });
 });
 
 app.post('/register', (req, res) => {
     const {username, password} = req.body;
+    const values = [username, password]
 
     const checkQuery = 'SELECT * FROM user WHERE username = ?';
     connection.query(checkQuery, [username], (error, results) => {
+        // der tjekkets for fejl og om brugernavnet allerede eksisterer i databasen
         if (error) {
             console.error(error);
-            return res.status(500).send('Server error');
+            return res.status(500).send('Server fejl');
         }
 
         if (results.length > 0) {
-            return res.status(409).send('Username already exists');
+            return res.status(409).send('Brugernavnet eksisterer allerede');
         }
 
-        // Insert new user into the database with hashed password
         const insertQuery = 'INSERT INTO user (username, password) VALUES (?, ?)';
-        connection.query(insertQuery, [username, password], (error, results) => {
+        connection.query(insertQuery, values, (error, results) => {
             if (error) {
                 console.error(error);
-                return res.status(500).send('Server error');
+                return res.status(500).send('Server fejl');
             }
 
             res.status(201).json({success: true});
         });
     });
 })
-// Endpoint for at tilføje en ny bar
+// Endpoint for at oprette en ny bar
 app.post('/bars', (req, res) => {
     const {
         name, rating, kvadratmeter,
@@ -301,9 +297,8 @@ app.delete('/bars/:ID', (req, res) => {
         }
     });
 });
-
-// Start serveren på port 3000
-
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`Serveren kører på port ${port}`);
 });
+
+// HTTP STATUS KODER: https://www.semrush.com/blog/http-status-codes/?g_network=g&g_keyword=&g_campaign=NE_SRCH_DSA_Blog_EN&g_acctid=503-093-2724&g_keywordid=dsa-2185834088336&g_adtype=search&g_adid=676326011180&g_campaignid=18350115241&g_adgroupid=159562815492&kw=&cmp=NE_SRCH_DSA_Blog_EN&label=dsa_pagefeed&Network=g&Device=c&utm_content=676326011180&kwid=dsa-2185834088336&cmpid=18350115241&agpid=159562815492&BU=Core&extid=180213783648&adpos=&gad_source=1&gbraid=0AAAAADiv3HReJ_yIC_VFvHD2azUew8POR&gclid=Cj0KCQiAr7C6BhDRARIsAOUKifj5vGL_pXVLwYJW-thfr3gFgL5QqKXJyzcOzF9kPgiH6L7099NO-ygaAn9AEALw_wcB
