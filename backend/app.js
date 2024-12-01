@@ -263,7 +263,6 @@ app.put('/bars/:id', (req, res) => {
         });
     });
 });
-
 app.listen(port, () => {
     console.log(`Serveren kører på port ${port}`);
 });
