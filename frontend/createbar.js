@@ -144,7 +144,7 @@ function hideUpdateForm(barId) {
     document.getElementById(`update-form-${barId}`).style.display = 'none';
 }
 
-// Funktion til at opdatere en bar
+/// Funktion til at opdatere en bar
 function updateBar(barId) {
     const barData = {
         name: document.getElementById(`update-bar-name-${barId}`).value.trim(),
@@ -167,10 +167,11 @@ function updateBar(barId) {
             if (response.ok) {
                 alert('Bar opdateret succesfuldt');
                 hideUpdateForm(barId);
-                fetchBars();
+                fetchBars(); // Refresh the list of bars
             } else {
                 alert('Fejl ved opdatering af bar');
             }
         })
         .catch(error => console.error('Fejl ved opdatering af bar:', error));
 }
+
