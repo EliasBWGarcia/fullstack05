@@ -37,7 +37,7 @@ app.get('/bars', (req, res) => {
             console.error('Database fejl:', error);
             return res.status(500).send('Server fejl');
         }
-        // results returneres, hvis der ikke er en error, og results skal stå som callback i funktionen.
+        // results returneres, hvis der ikke er en error. Results skal altid stå som callback i funktionen.
         res.json(results);
     });
 });
@@ -99,7 +99,7 @@ app.get('/bars/id/:ID', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    const { username, password } = req.body;
+    const {username, password} = req.body;
     const values = [username, password];
     const sqlQuery = 'SELECT * FROM user WHERE username = ? AND password = ?';
 
@@ -113,7 +113,7 @@ app.post('/login', (req, res) => {
             return res.status(401).send('Forkert brugernavn eller password. Læs placeholderne i input felterne, eller opret en account.');
         }
 
-        res.status(200).json({ success: true });
+        res.status(200).json({success: true});
     });
 });
 
@@ -189,7 +189,7 @@ app.post('/bars', (req, res) => {
                     return res.status(500).send('Server fejl');
                 }
 
-                res.status(201).json({ bar_id: barResult.insertId });
+                res.status(201).json({bar_id: barResult.insertId});
             });
         });
     });

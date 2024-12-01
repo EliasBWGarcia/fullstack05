@@ -81,9 +81,6 @@ getResetBtn.addEventListener('click', () => {
 fetchAllBars();
 
 
-
-
-
 //Kort på siden
 ////har brugt https://leafletjs.com/examples/quick-start/
 
@@ -95,7 +92,6 @@ const map = L.map('map').setView([55.6761, 12.5683], 13);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
-
 
 
 //Tilføjer markers på alle barer
@@ -119,8 +115,8 @@ fetch('http://localhost:3000/bars')
             //hjælp fra https://stackoverflow.com/questions/21584790/how-to-use-custom-markers-with-leaflet
             const beerIcon = L.icon({
                 iconUrl: `beer.png`,
-                iconSize:     [80, 70], // size of the icon
-                popupAnchor:  [0, -20] // popup relative to the iconAnchor
+                iconSize: [80, 70], // size of the icon
+                popupAnchor: [0, -20] // popup relative to the iconAnchor
             });
 
 

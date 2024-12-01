@@ -94,7 +94,7 @@ document.getElementById('add-bar-form').addEventListener('submit', (e) => {
 
     fetch('http://localhost:3000/bars', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(barData)
     })
         .then(response => {
@@ -160,7 +160,7 @@ function updateBar(barId) {
 
     fetch(`http://localhost:3000/bars/${barId}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(barData)
     })
         .then(response => {
